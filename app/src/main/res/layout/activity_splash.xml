@@ -1,0 +1,122 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/splash_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- App 图标 -->
+    <ImageView
+        android:id="@+id/logo_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/app_icon"
+        android:contentDescription="App Logo" />
+
+    <!-- 标题 -->
+    <TextView
+        android:id="@+id/textView_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="240dp"
+        android:text="音乐社区"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- 副标题 -->
+    <TextView
+        android:id="@+id/textView_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="270dp"
+        android:text="听 你 想 听"
+        android:textColor="#8C8383"
+        android:textSize="16sp" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/privacy_popup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="350dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="#F5F5F5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:paddingTop="18dp"
+            android:paddingBottom="0dp">
+
+            <!-- 顶部标题 -->
+            <TextView
+                android:id="@+id/tv_privacy_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="声明与条款"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                android:gravity="center"
+                android:layout_marginBottom="12dp" />
+
+            <!-- 隐私说明 -->
+            <TextView
+                android:id="@+id/tv_privacy_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp" />
+
+            <!-- 不同意 -->
+            <TextView
+                android:id="@+id/btn_disagree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="22dp"
+                android:text="我不同意"
+                android:gravity="center"
+                android:textColor="#888888"
+                android:textSize="15sp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <!-- 同意按钮：填满底部 -->
+            <TextView
+                android:id="@+id/btn_agree"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center"
+                android:text="同意并使用"
+                android:textColor="#FFFFFF"
+                android:textSize="17sp"
+                android:background="#2196F3"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="0dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- 半透明遮罩层放在最顶层，覆盖所有内容 -->
+    <View
+        android:id="@+id/dim_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone" />
+
+</FrameLayout>

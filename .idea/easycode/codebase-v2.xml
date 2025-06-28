@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/app/src/androidTest/java/com/example/music_zhanghongji/ExampleInstrumentedTest.kt;G:/music_zhanghongji/app/src/main/java/com/example/music_zhanghongji/MainActivity.kt;G:/music_zhanghongji/app/src/main/java/com/example/music_zhanghongji/SplashActivity.kt;G:/music_zhanghongji/app/src/test/java/com/example/music_zhanghongji/ExampleUnitTest.kt;G:/music_zhanghongji/app/build.gradle.kts;G:/music_zhanghongji/build.gradle.kts;G:/music_zhanghongji/settings.gradle.kts" />
+  </component>
+</project>
