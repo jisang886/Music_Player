@@ -1,4 +1,4 @@
-package com.example.music_zhanghongji
+package com.example.music_zhanghongji.Activity
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -11,6 +11,7 @@ import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.example.music_zhanghongji.R
 
 class SplashActivity : AppCompatActivity() {
 

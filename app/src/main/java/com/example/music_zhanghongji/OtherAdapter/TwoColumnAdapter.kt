@@ -1,5 +1,6 @@
 package com.example.music_zhanghongji.OtherAdapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.music_zhanghongji.MusicInfo
+import com.example.music_zhanghongji.Activity.MusicPlayerActivity
 import com.example.music_zhanghongji.R
+import com.example.music_zhanghongji.model.MusicInfo
+import com.example.music_zhanghongji.service.MusicService
 
 class TwoColumnAdapter(
-    private val list: List<MusicInfo>
+    private val list: List<MusicInfo>,
+    private val musicBinder: MusicService.MusicBinder?
 ) : RecyclerView.Adapter<TwoColumnAdapter.TwoColumnViewHolder>() {
 
     inner class TwoColumnViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,9 +42,29 @@ class TwoColumnAdapter(
         holder.tvTitle.text = music.musicName
         holder.tvAuthor.text = music.author
 
+        holder.imgCover.setOnClickListener {
+            val context = holder.itemView.context
+            if (musicBinder == null) {
+                Toast.makeText(context, "播放器未准备好", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 直接调用 playSingleMusic 播放这首歌
+            musicBinder.playSingleMusic(music)
+            musicBinder.play()  // 确保调用 play 开始播放
+
+            val index = musicBinder.getCurrentIndex()
+
+            // 跳转播放页时传递当前索引
+            val intent = Intent(context, MusicPlayerActivity::class.java)
+            intent.putExtra("startIndex", index)
+            context.startActivity(intent)
+        }
+
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "播放: ${music.musicName}", Toast.LENGTH_SHORT).show()
-            // 这里写播放逻辑，比如调用播放器
+            musicBinder?.addToPlayList(music)
+            Toast.makeText(holder.itemView.context, "已加入播放列表: ${music.musicName}", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

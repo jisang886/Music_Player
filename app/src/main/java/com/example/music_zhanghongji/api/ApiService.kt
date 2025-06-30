@@ -1,6 +1,6 @@
 package com.example.music_zhanghongji.api
 
-import com.example.music_zhanghongji.HomePageResponse
+import com.example.music_zhanghongji.model.HomePageResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

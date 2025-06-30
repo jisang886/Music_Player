@@ -1,5 +1,6 @@
 package com.example.music_zhanghongji.Banner
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.example.music_zhanghongji.MusicInfo
+import com.example.music_zhanghongji.Activity.MusicPlayerActivity
 import com.example.music_zhanghongji.R
+import com.example.music_zhanghongji.model.MusicInfo
+import com.example.music_zhanghongji.service.MusicService
 
 class BannerPagerAdapter(
-    private val list: List<MusicInfo>
+    private val list: List<MusicInfo>,
+    private val musicBinder: MusicService.MusicBinder?
 ) : RecyclerView.Adapter<BannerPagerAdapter.BannerViewHolder>() {
 
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,24 +41,37 @@ class BannerPagerAdapter(
         val music = list[position]
         val radiusInPx = (16 * holder.itemView.resources.displayMetrics.density).toInt()
 
-        // 封面图圆角加载
         Glide.with(holder.itemView)
             .load(music.coverUrl)
             .apply(RequestOptions.bitmapTransform(RoundedCorners(radiusInPx)))
             .into(holder.imgCover)
 
-        // 设置文本
         holder.tvTitle.text = music.musicName
         holder.tvAuthor.text = music.author
 
-        // 播放按钮
+        // 封面点击播放
+        holder.imgCover.setOnClickListener {
+            val context = holder.itemView.context
+            if (musicBinder == null) {
+                Toast.makeText(context, "播放器未准备好", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            musicBinder.playSingleMusic(music)
+
+            val index = musicBinder.getCurrentIndex() ?: 0
+
+            val intent = Intent(context, MusicPlayerActivity::class.java)
+            intent.putExtra("startIndex", index)
+            context.startActivity(intent)
+        }
+
+
+        // 播放列表添加按钮单独绑定点击事件
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(
-                holder.itemView.context,
-                "播放：${music.musicName}",
-                Toast.LENGTH_SHORT
-            ).show()
-            // TODO: 添加播放逻辑
+            musicBinder?.addToPlayList(music)
+            Toast.makeText(holder.itemView.context, "已加入播放列表: ${music.musicName}", Toast.LENGTH_SHORT).show()
         }
     }
+
 }

@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    id("kotlin-kapt") // ✅ 添加这一行
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 
@@ -39,6 +40,11 @@ android {
 
 dependencies {
 
+    implementation("com.google.android.material:material:1.8.0")
+
+    //下滑关闭
+    implementation("me.imid.swipebacklayout.lib:library:1.1.0")
+
     //指示器库
     implementation("com.tbuonomo:dotsindicator:4.2")
 
@@ -67,6 +73,8 @@ dependencies {
 // SwipeRefreshLayout（下拉刷新）
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+
+    implementation("androidx.palette:palette:1.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

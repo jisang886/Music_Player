@@ -1,13 +1,6 @@
-package com.example.music_zhanghongji
+package com.example.music_zhanghongji.model
 
-data class MusicInfo(
-    val id: Long,
-    val musicName: String,
-    val author: String,
-    val coverUrl: String,
-    val musicUrl: String,
-    val lyricUrl: String // 别忘了歌词链接
-)
+
 
 data class HomePageInfo(
     val moduleConfigId: Int,

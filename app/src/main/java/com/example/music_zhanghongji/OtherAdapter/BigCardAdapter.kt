@@ -1,5 +1,6 @@
 package com.example.music_zhanghongji.OtherAdapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,14 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.music_zhanghongji.MusicInfo
+import com.example.music_zhanghongji.Activity.MusicPlayerActivity
 import com.example.music_zhanghongji.R
+import com.example.music_zhanghongji.model.MusicInfo
+import com.example.music_zhanghongji.service.MusicService
 
 class BigCardAdapter(
-    private val list: List<MusicInfo>
+    private val list: List<MusicInfo>,
+    private val musicBinder: MusicService.MusicBinder?
 ) : RecyclerView.Adapter<BigCardAdapter.BigCardViewHolder>() {
 
     inner class BigCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,9 +42,27 @@ class BigCardAdapter(
         holder.tvTitle.text = music.musicName
         holder.tvAuthor.text = music.author
 
+        holder.imgCover.setOnClickListener {
+            val context = holder.itemView.context
+            if (musicBinder == null) {
+                Toast.makeText(context, "播放器未准备好", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            musicBinder.playSingleMusic(music)
+            musicBinder.play()  // 关键：调用播放
+
+            val index = musicBinder.getCurrentIndex()
+
+            val intent = Intent(context, MusicPlayerActivity::class.java)
+            intent.putExtra("startIndex", index)
+            context.startActivity(intent)
+        }
+
         holder.btnPlay.setOnClickListener {
-            Toast.makeText(holder.itemView.context, "播放: ${music.musicName}", Toast.LENGTH_SHORT).show()
-            // 播放逻辑
+            musicBinder?.addToPlayList(music)
+            Toast.makeText(holder.itemView.context, "已加入播放列表: ${music.musicName}", Toast.LENGTH_SHORT).show()
         }
     }
+
 }
